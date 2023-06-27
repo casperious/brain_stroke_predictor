@@ -1,0 +1,1 @@
+This project is a proof of concept for a classifier to detect likelihood of patient having brain stroke. It is trained with brain stroke data which has been downloaded from Kaggle.
