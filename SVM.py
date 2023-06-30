@@ -94,6 +94,8 @@ print(classification_report(y_test,y_pred))
 print(" -------------------------------------------------------------------------------------------------")
 print(classification_report(y_one_test, y_one_pred))
 
+print("Where did the 100% come from")
+
 #creating confusion matrix
 from sklearn.metrics import confusion_matrix
 cm = confusion_matrix(y_test, y_pred)
