@@ -33,6 +33,7 @@ d = defaultdict(LabelEncoder)
 d_o = defaultdict(OneHotEncoder)
 ohe = OneHotEncoder(categories = col_indices, drop = 'first', sparse = False)
 # Encoding the variable
+
 fit = data_set.apply(lambda x: d[x.name].fit_transform(x))
 fit.apply(lambda x: d[x.name].inverse_transform(x))
 
@@ -55,4 +56,30 @@ model_OHE = ColumnTransformer(
     remainder = 'passthrough'
     )
 dummified = model_OHE.fit(data_set)
-dummified = dummify(model_OHE, data_set,cols)
+dummified_set = dummify(model_OHE, data_set,cols)
+
+'''
+Below is independent and dependent split of label encoded data_set
+'''
+#extracting independent and dependent Variable
+x = fit.iloc[:,fit.columns!=stroke_col].values  #all columns excluding dependent variable
+y = fit.iloc[:,10].values     #dependent variable
+
+'''
+Below is independent and dependent split of one hot encoded dummy var data set
+'''
+x_one = dummified_set.iloc[:,dummified_set.columns!=stroke_col].values
+y_one = dummified_set.iloc[:,19].values
+
+
+#splitting dataset into training and test set
+x_train, x_test, y_train, y_test = train_test_split(x,y,test_size = 0.25, random_state = 4)
+x_one_train, x_one_test, y_one_train, y_one_test = train_test_split(x_one,y_one, test_size = 0.25, random_state = 2)
+
+#feature scaling
+from sklearn.preprocessing import StandardScaler
+st_x = StandardScaler()
+x_train = st_x.fit_transform(x_train)
+x_test = st_x.transform(x_test)
+x_one_train = st_x.fit_transform(x_one_train)
+x_one_test = st_x.fit_transform(x_one_test)

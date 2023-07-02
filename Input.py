@@ -5,7 +5,8 @@ Created on Fri Jun 23 15:56:23 2023
 @author: jeremy
 """
 
-import SVM as svm
+#import SVM as svm
+import RandomForest as rf
 import numpy as nm
 import matplotlib.pyplot as mtp
 import pandas as pd
@@ -17,10 +18,11 @@ from tkinter import filedialog
 
 def openFile():
     filePath = filedialog.askopenfilename()
-    print(filePath)
+    #print(filePath)
     data_set_new = pd.read_csv(filePath)
     #print(data_set_new)
-    svm.ClassifyNew(data_set_new)
+    #svm.ClassifyNew(data_set_new)
+    rf.ClassifyNew(data_set_new)
     
 
 #accept new csv file to read and predict
