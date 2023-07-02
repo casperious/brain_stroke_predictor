@@ -12,6 +12,9 @@ from sklearn.preprocessing import LabelEncoder, OneHotEncoder
 from sklearn.model_selection import train_test_split
 from sklearn.metrics import classification_report
 from sklearn.compose import ColumnTransformer
+import Preprocessor as preprocessor
+
+"""
 #importing data sets
 data_set = pd.read_csv('brain_stroke.csv')
 
@@ -52,7 +55,12 @@ model_OHE = ColumnTransformer(
     )
 dummified = model_OHE.fit(data_set)
 dummified = dummify(model_OHE, data_set,cols)
-
+"""
+fit = preprocessor.fit
+dummified = preprocessor.dummified
+stroke_col = preprocessor.stroke_col
+cols = preprocessor.cols
+d= preprocessor.d
 '''
 Below is independent and dependent split of label encoded data_set
 '''
