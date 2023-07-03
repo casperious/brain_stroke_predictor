@@ -36,8 +36,10 @@ ohe = OneHotEncoder(categories = col_indices, drop = 'first', sparse = False)
 
 fit = data_set.apply(lambda x: d[x.name].fit_transform(x))
 fit.apply(lambda x: d[x.name].inverse_transform(x))
-
-
+#data_set.apply(lambda x: d_o[x.name].fit_transform(x))
+print(d.keys())
+print("________________")
+print(d_o.keys())
 '''
 One Hot Encoding with dummy vars
 
@@ -56,7 +58,10 @@ model_OHE = ColumnTransformer(
     remainder = 'passthrough'
     )
 dummified = model_OHE.fit(data_set)
+#print(dummified.head())
 dummified_set = dummify(model_OHE, data_set,cols)
+#fit_set = dummified_set.apply(lambda x: d_o[x.name].fit_transform(x))
+#fit_set.apply(lambda x: d_o[x.name].inverse_transform(x))
 
 '''
 Below is independent and dependent split of label encoded data_set

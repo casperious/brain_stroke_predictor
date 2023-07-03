@@ -19,7 +19,10 @@ from sklearn import metrics
 from sklearn.metrics import classification_report
 from sklearn.metrics import confusion_matrix
 from sklearn.metrics import accuracy_score
+from sklearn.tree import export_graphviz
+from sklearn import tree
 #Variables for code from preprocessor
+data_set = preprocessor.data_set
 fit = preprocessor.fit
 dummified = preprocessor.dummified_set
 stroke_col = preprocessor.stroke_col
@@ -38,17 +41,30 @@ st_x = preprocessor.st_x
 
 
 classifier = RandomForestClassifier(n_estimators=20, random_state=1, max_depth=10)
-classifier.fit(x_one_train,y_one_train)
+classifier.fit(x_train,y_train)
 
-y_one_pred = classifier.predict(x_one_test)
+y_pred = classifier.predict(x_test)
 
-print(confusion_matrix(y_one_test,y_one_pred))
-print(classification_report(y_one_test, y_one_pred))
-print(accuracy_score(y_one_test, y_one_pred))
-print("Mean Absolute Error = " , metrics.mean_absolute_error(y_one_test, y_one_pred))
-print("Mean Squared Error = ", metrics.mean_squared_error(y_one_test, y_one_pred))
-print("Root Mean Squared Error = ", np.sqrt(metrics.mean_squared_error(y_one_test, y_one_pred)))
+print(confusion_matrix(y_test,y_pred))
+print(classification_report(y_test, y_pred))
+print(accuracy_score(y_test, y_pred))
+print("Mean Absolute Error = " , metrics.mean_absolute_error(y_test, y_pred))
+print("Mean Squared Error = ", metrics.mean_squared_error(y_test, y_pred))
+print("Root Mean Squared Error = ", np.sqrt(metrics.mean_squared_error(y_test, y_pred)))
 
+#print decision tree
+fig, axes = plt.subplots(nrows = 1,ncols = 5,figsize = (10,2), dpi=900)
+fn=data_set.columns
+#cn=data_set.target_names
+for index in range(0, 5):
+    tree.plot_tree(classifier.estimators_[index],
+                   feature_names = fn, 
+                   #class_names=cn,
+                   filled = True,
+                   ax = axes[index]);
+
+    axes[index].set_title('Estimator: ' + str(index), fontsize = 11)
+fig.savefig('rf_5trees.png')
 #function to run classifier on new csv input
 '''
 Dictionary for One Hot Encoder in Preprocessor needs to be fit
