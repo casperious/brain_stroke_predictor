@@ -41,19 +41,33 @@ st_x = preprocessor.st_x
 
 
 classifier = RandomForestClassifier(n_estimators=20, random_state=1, max_depth=10)
+classifier_one = RandomForestClassifier(n_estimators=20, random_state=1, max_depth=10)
+
 classifier.fit(x_train,y_train)
+classifier_one.fit(x_one_train,y_one_train)
 
 y_pred = classifier.predict(x_test)
+y_one_pred = classifier_one.predict(x_one_test)
 
+#label encoded
 print(confusion_matrix(y_test,y_pred))
 print(classification_report(y_test, y_pred))
 print(accuracy_score(y_test, y_pred))
 print("Mean Absolute Error = " , metrics.mean_absolute_error(y_test, y_pred))
 print("Mean Squared Error = ", metrics.mean_squared_error(y_test, y_pred))
 print("Root Mean Squared Error = ", np.sqrt(metrics.mean_squared_error(y_test, y_pred)))
+print("_________________________________________________________________")
+
+#one hot encoded
+print(confusion_matrix(y_one_test,y_one_pred))
+print(classification_report(y_one_test, y_one_pred))
+print(accuracy_score(y_one_test, y_one_pred))
+print("Mean Absolute Error = " , metrics.mean_absolute_error(y_one_test, y_one_pred))
+print("Mean Squared Error = ", metrics.mean_squared_error(y_one_test, y_one_pred))
+print("Root Mean Squared Error = ", np.sqrt(metrics.mean_squared_error(y_one_test, y_one_pred)))
 
 #print decision tree
-fig, axes = plt.subplots(nrows = 1,ncols = 5,figsize = (10,2), dpi=900)
+'''fig, axes = plt.subplots(nrows = 1,ncols = 5,figsize = (10,2), dpi=900)
 fn=data_set.columns
 #cn=data_set.target_names
 for index in range(0, 5):
@@ -64,7 +78,7 @@ for index in range(0, 5):
                    ax = axes[index]);
 
     axes[index].set_title('Estimator: ' + str(index), fontsize = 11)
-fig.savefig('rf_5trees.png')
+fig.savefig('rf_5trees.png')'''
 #function to run classifier on new csv input
 '''
 Dictionary for One Hot Encoder in Preprocessor needs to be fit
@@ -74,10 +88,10 @@ def ClassifyNew(data_set_new):
     #this should apply original encoding to new data
     for col in cols:
         print("Col is " , data_set_new[col])
-        data_set_new[col] = d_o[col].transform(data_set_new[col])
+        data_set_new[col] = d[col].transform(data_set_new[col])
     
     print(data_set_new.to_string())
     x_new = data_set_new.iloc[:,data_set_new.columns!=stroke_col].values
     x_scaled = st_x.fit_transform(x_new)
     prediction = classifier.predict(x_scaled)
-    print("Prediction is No stroke") if prediction[0] == 0 else print("Prediction is Stroke")
+    print("Prediction by Random Forest is No stroke") if prediction[0] == 0 else print("Prediction is Stroke")

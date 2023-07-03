@@ -26,26 +26,31 @@ data_set = pd.read_csv('brain_stroke.csv')
 
 stroke_col = 'stroke'
 cols = ['gender', 'ever_married', 'work_type', 'Residence_type', 'smoking_status']
+gender_categories = ['Male', 'Female']
+ever_married_categories= ['Yes','No']
+work_type_categories = ['Private', 'Self Employed', 'Govt_job', 'children']
+Residence_type_categories = ['Rural', 'Urban']
+Smoking_status_categories = ['Unknown', 'formerly smoked', 'never smoked', 'smokes']
 col_indices = [0,4,5,6,9]
 
 #encoding categorical data
 d = defaultdict(LabelEncoder)
 d_o = defaultdict(OneHotEncoder)
-ohe = OneHotEncoder(categories = col_indices, drop = 'first', sparse = False)
+ohe = OneHotEncoder(drop = 'first')
 # Encoding the variable
 
 fit = data_set.apply(lambda x: d[x.name].fit_transform(x))
 fit.apply(lambda x: d[x.name].inverse_transform(x))
 #data_set.apply(lambda x: d_o[x.name].fit_transform(x))
-print(d.keys())
-print("________________")
-print(d_o.keys())
+#print(d.keys())
+#print("________________")
+#print(d_o.keys())
 '''
 One Hot Encoding with dummy vars
 
 '''
 
-def dummify(OHE, x, columns):
+'''def dummify(OHE, x, columns):
     transformed_array = OHE.transform(x)
     initial_colnames_keep = list(set(x.columns.tolist()) - set(columns))
     new_colnames = np.concatenate(model_OHE.named_transformers_['OHE'].categories_).tolist()
@@ -57,9 +62,11 @@ model_OHE = ColumnTransformer(
     [('OHE', OneHotEncoder(),['gender', 'ever_married', 'work_type', 'Residence_type', 'smoking_status'])],
     remainder = 'passthrough'
     )
-dummified = model_OHE.fit(data_set)
+dummified = model_OHE.fit(data_set)'''
+dummified_one_hot = ohe.fit_transform(data_set)
+dummified_set = pd.get_dummies(data = data_set, columns = cols)
 #print(dummified.head())
-dummified_set = dummify(model_OHE, data_set,cols)
+#dummified_set = dummify(model_OHE, data_set,cols)
 #fit_set = dummified_set.apply(lambda x: d_o[x.name].fit_transform(x))
 #fit_set.apply(lambda x: d_o[x.name].inverse_transform(x))
 
@@ -74,7 +81,7 @@ y = fit.iloc[:,10].values     #dependent variable
 Below is independent and dependent split of one hot encoded dummy var data set
 '''
 x_one = dummified_set.iloc[:,dummified_set.columns!=stroke_col].values
-y_one = dummified_set.iloc[:,19].values
+y_one = dummified_set.iloc[:,5].values
 
 
 #splitting dataset into training and test set

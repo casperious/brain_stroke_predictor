@@ -69,5 +69,5 @@ def ClassifyNew(data_set_new):
     x_new = data_set_new.iloc[:,data_set_new.columns!=stroke_col].values
     x_scaled = st_x.fit_transform(x_new)
     prediction = classifier.predict(x_scaled)
-    print("Prediction is No stroke") if prediction[0] == 0 else print("Prediction is Stroke")
+    print("Prediction by SVM is No stroke") if prediction[0] == 0 else print("Prediction is Stroke")
     
