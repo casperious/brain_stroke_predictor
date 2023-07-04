@@ -40,7 +40,7 @@ y_one_test = preprocessor.y_one_test
 st_x = preprocessor.st_x
 
 
-classifier = RandomForestClassifier(n_estimators=20, random_state=1, max_depth=10)
+classifier = RandomForestClassifier(n_estimators=50)
 classifier_one = RandomForestClassifier(n_estimators=20, random_state=1, max_depth=10)
 
 classifier.fit(x_train,y_train)
