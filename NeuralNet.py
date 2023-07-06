@@ -12,12 +12,30 @@ from tensorflow.keras import models, layers, utils, backend as K
 #import matplotlib.pyplot as plt
 #import shap
 
-model = models.Sequential(name = "Perceptron", layers = [
+n_features = 19 #onehotencoded
+
+model = models.Sequential(name = "DeepNN", layers = [
+    #hidden layer 1 (input)
     layers.Dense(
-        name="dense",
+        name="h1",
         input_dim = 19,
         units = 1,
-        activation = "linear"
-        )
+        activation = "relu"
+        ),
+    layers.Dropout(name="drop1", rate = 0.2),
+    
+    #hidden layer 2
+    layers.Dense(
+        name = "h2",
+        units = int(round((n_features+1)/4)),
+        activation = 'relu'
+        ),
+    layers.Dropout(name= "drop2", rate = 0.2),
+    
+    #output layer
+    layers.Dense(name = "output", units = 1, activation = 'sigmoid')
+    
     ])
 model.summary()
+
+model = models.model
