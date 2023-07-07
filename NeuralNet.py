@@ -38,4 +38,4 @@ model = models.Sequential(name = "DeepNN", layers = [
     ])
 model.summary()
 
-model = models.model
+#model = models.model

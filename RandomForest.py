@@ -14,7 +14,7 @@ import Preprocessor as preprocessor
 from sklearn.ensemble import RandomForestClassifier
 import pandas as pd
 import numpy as np
-import matplotlib.pyplot as plt
+#import matplotlib.pyplot as plt
 from sklearn import metrics
 from sklearn.metrics import classification_report
 from sklearn.metrics import confusion_matrix

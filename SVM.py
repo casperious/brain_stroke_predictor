@@ -2,8 +2,8 @@
 #importing libs
 
 import numpy as nm
-import matplotlib.pyplot as mtp
-import pandas as pd
+#import matplotlib.pyplot as mtp
+#import pandas as pd
 import category_encoders as ce
 import sklearn as skl
 from sklearn import preprocessing
