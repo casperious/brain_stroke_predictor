@@ -1,5 +1,7 @@
 POAF Notes
 
+https://www.ncbi.nlm.nih.gov/pmc/articles/PMC9017863/
+
 Post-operative atrial fibrillation (POAF) is a persistent and serious surgical complication that occur in 20-55% of cardiac surgery cases. Patients have a 2-fold increase in mortality risk and spend about 3.7 more days in the hospital and $16,000 more in medical costs during their visit. 
 
 Patients have a 2-fold increase in mortality risk and spend about 3.7 more days in the hospital and $16,000 more in medical costs during their visit. 
@@ -39,3 +41,46 @@ Risk factors for AFib include
     Moderate to heavy alcohol use
     Smoking
     Enlargement of the chambers on the left side of the heart
+
+Hypomagnesemia is a common feature post-surgery and has been shown to be a biomarker for predicting POAF.In the Framingham Heart Study, it was shown low magnesium level after cardiac surgery was an indication for the onset of POAF 
+
+treating patients prophylactically with magnesium in the post-operative period only led to a statistically significant decrease in POAF [25], suggesting the use of intravenous magnesium as an alternative to prevent POAF. However, careful randomized clinical studies are required to determine the safety and duration of effect.
+
+patients who undergo combined surgeries, such as a combined valve and coronary artery bypass graft (CABG) surgeries, are twice as likely to develop POAF, up to 60% 
+
+the type of surgery and length of the surgery are shown to be significantly correlated with the onset of POAF
+
+Pre-existing cardiac conditions that predispose patients to POAF. Interpreted from Yamashita et al. (2019).
+                    	Risk Increase for POAF	        Odds Ratio
+Hypertension	        29%	                            1.29 (95% CI: 1.12 to 1.49)
+Diabetes	            6%	                            1.06 (95% CI: 1.00 to 1.13)
+COPD	                36%	                            1.36 (95% CI: 1.13 to 1.64)
+Heart Failure	        56%	                            1.56 (95% CI: 1.31 to 1.86)
+Myocardial Infarction	18%	                            1.18 (95% CI: 1.05 to 1.34)
+
+Increasing age has a strong correlation with the onset of POAF. 
+
+Some studies have suggested that male sex is an independent risk factor for developing POAF, however there is conflict in the literature.
+
+(use weights for different factors. race is low, since studies have used larger sample of caucasian than non white test subjects)
+
+patients with a high BMI or obesity showed to have a significantly increased risk of developing POAF than patients without these risk factors (p = 0.006) 
+
+score using the combination of variables with higher predictive value included in the POAF (COM-AF - https://www.ncbi.nlm.nih.gov/pmc/articles/PMC8617386/) has been reported to be more useful for predicting POAF development
+
+2.3. Methods for Reducing POAF Incidence
+
+2.3.1. β-Blockers:-
+
+β-Blockers prophylaxis before cardiac surgery has been shown to be one of the most effective treatments for POAF so far
+In a study using β-Blockers in combination with Amiodarone, there was a 13.75% decrease in the onset of POAF with an onset frequency of 17.50% compared to β-Blockers alone at 31.25% as shown in figure 1. 
+Although effective against POAF and granted a Class I indication, β-Blockers can lead to a variety of adverse outcomes, most commonly bradycardia and hypotension
+
+https://www.ncbi.nlm.nih.gov/core/lw/2.0/html/tileshop_pmc/tileshop_pmc_inline.html?title=Click on image to zoom&p=PMC3&id=9017863_nihms-1794799-f0001.jpg
+
+2.3.2. Amiodarone:-
+one of the most effective treatments for POAF
+However, amiodarone presents with serious cardiac and extracardiac adverse risks, such as bradycardia, increased liver enzymes, hyperthyroidism, thyrotoxicosis, and interstitial pneumonitis. Accumulation of the drug may also lead to longer lasting side effects after discontinuing the drug
+Local epicardial application of amiodarone hydrogel has been shown to reduce the adverse outcomes of amiodarone and have a decrease in POAF incidence from 22-37% to 3.3-8%
+
+2.3.3. Statin Therapy:-
