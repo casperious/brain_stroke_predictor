@@ -1,1 +1,41 @@
-AFIB Notes
+POAF Notes
+
+Post-operative atrial fibrillation (POAF) is a persistent and serious surgical complication that occur in 20-55% of cardiac surgery cases. Patients have a 2-fold increase in mortality risk and spend about 3.7 more days in the hospital and $16,000 more in medical costs during their visit. 
+
+Patients have a 2-fold increase in mortality risk and spend about 3.7 more days in the hospital and $16,000 more in medical costs during their visit. 
+
+Current mechanisms that are postulated to contribute to POAF include an increase in sympathetic tone, oxidative stress, local and systemic inflammation, a trigger that induces atrial substrate changes, a driver to sustain POAF, and electrolyte disturbances such as hypomagnesemia.
+
+current risk factors include age, male sex, history of myocardial infarction or heart failure, hypertension, diabetes, obesity, and COPD.
+
+Treatments mostly include prophylaxis of repurposed drugs such as beta-blockers, statins, oral anticoagulants, antiarrhythmics, and Vitamin D and electrolyte supplementation. Autonomic denervation has also been a promising preventative measure for patients undergoing cardiac surgery.
+
+The risk for AFib increases with age. High blood pressure, the risk for which also increases with advancing age, accounts for about 1 in 5 cases of AFib.4
+
+In about 90% of patients who develop POAF it occurs within the first six days post operation, corresponding with the peak of the postoperative systemic inflammation response
+
+Post-operative atrial fibrillation typically presents differently from other forms of AF. POAF typically develops within the first 6 days post-operation and then returns to normal sinus rhythm. 
+
+POAF usually require a trigger and a vulnerable atrial substrate change, typically originating from the pulmonary veins and other atrial locations
+
+If POAF is caused by local or systemic inflammation, why do drugs that decrease the levels and activity of inflammatory markers lead to a significantly increased risk of atrial fibrillation?
+
+Pain, especially unrelieved pain, could be a trigger for atrial fibrillation. 
+
+findings from this study suggest no association between opioid use and atrial fibrillation and delirium.
+
+In a recent study 43% of patients developed POAF and showed increased post-operative fluid balance and M-terminal pro-brain natriuretic peptide (NT-ProBNP). Also, anemia pre-operation led to increased transfusion volumes, and suggests that POAF may be triggered by global cardiac strain 
+
+Risk factors for AFib include
+    Advancing age
+    High blood pressure
+    Obesity
+    European ancestry
+    Diabetes
+    Heart failure
+    Ischemic heart disease
+    Hyperthyroidism
+    Chronic kidney disease
+    Moderate to heavy alcohol use
+    Smoking
+    Enlargement of the chambers on the left side of the heart
