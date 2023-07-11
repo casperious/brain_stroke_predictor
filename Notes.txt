@@ -84,3 +84,18 @@ However, amiodarone presents with serious cardiac and extracardiac adverse risks
 Local epicardial application of amiodarone hydrogel has been shown to reduce the adverse outcomes of amiodarone and have a decrease in POAF incidence from 22-37% to 3.3-8%
 
 2.3.3. Statin Therapy:-
+multiple meta-analyses have shown that statins are effective at preventing POAF in patients undergoing CABG, with Atorvastatin showing effectiveness instead of Rosuvastatin
+
+2.3.4. Oral Anticoagulants:-
+
+2.3.5 Vit D supplementation:-
+In multiple studies, supplementation with Vitamin D lowered the prevalence of POAF via RAAS inhibition 
+
+2.3.6. Magnesium Supplementation:-
+Supplementation with Mg significantly increases the refractory period of atrial repolarization. The proposed mechanism for hypomagnesium contributing to POAF is due to dilution from transfusion during surgery
+meta-analysis showed that post-operative magnesium supplementation was the only time frame that significantly reduced the risk of POAF
+
+2.3.7 Autonomic Denervation:-
+
+2.3.8 Opting for Minimally Invasive Cardiac Surgery:-
+
