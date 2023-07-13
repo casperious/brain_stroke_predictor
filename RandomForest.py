@@ -7,6 +7,9 @@ Created on Sun Jul  2 16:00:42 2023
 
 """
 Working on Random Forest Regression Model as per https://www.ncbi.nlm.nih.gov/pmc/articles/PMC9962068/#B14-jcdd-10-00082
+
+
+Weighted Random Forest https://arxiv.org/ftp/arxiv/papers/2009/2009.00534.pdf
 """
 
 # Importing the libraries
@@ -38,6 +41,7 @@ x_one_test = preprocessor.x_one_test
 y_test = preprocessor.y_test
 y_one_test = preprocessor.y_one_test
 st_x = preprocessor.st_x
+dummified_set = preprocessor.dummified_set
 
 
 classifier = RandomForestClassifier(n_estimators=50)
@@ -86,12 +90,15 @@ Dictionary for One Hot Encoder in Preprocessor needs to be fit
 def ClassifyNew(data_set_new):
     # Using the dictionary to label future data
     #this should apply original encoding to new data
-    for col in cols:
+    #print(dummified_set.columns)
+    data_set_new = data_set_new.reindex(columns = dummified_set.columns, fill_value = 0)
+    '''for col in cols:
         print("Col is " , data_set_new[col])
         data_set_new[col] = d[col].transform(data_set_new[col])
-    
-    print(data_set_new.to_string())
+    '''
+    print(data_set_new.columns.to_list())
     x_new = data_set_new.iloc[:,data_set_new.columns!=stroke_col].values
+    print(x_new)
     x_scaled = st_x.fit_transform(x_new)
-    prediction = classifier.predict(x_scaled)
+    prediction = classifier_one.predict(x_scaled)
     print("Prediction by Random Forest is No stroke") if prediction[0] == 0 else print("Prediction is Stroke")

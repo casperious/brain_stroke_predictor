@@ -21,7 +21,7 @@ def openFile():
     #print(filePath)
     data_set_new_svm = pd.read_csv(filePath)
     data_set_new_rf = pd.read_csv(filePath)
-    #print(data_set_new)
+    #print(data_set_new_rf.type)
     svm.ClassifyNew(data_set_new_svm)
     rf.ClassifyNew(data_set_new_rf)
     
