@@ -42,7 +42,9 @@ y_test = preprocessor.y_test
 y_one_test = preprocessor.y_one_test
 st_x = preprocessor.st_x
 dummified_set = preprocessor.dummified_set
+ohe = preprocessor.ohe
 
+pd.set_option('display.max_columns',None)
 
 classifier = RandomForestClassifier(n_estimators=50)
 classifier_one = RandomForestClassifier(n_estimators=20, random_state=1, max_depth=10)
@@ -91,14 +93,28 @@ def ClassifyNew(data_set_new):
     # Using the dictionary to label future data
     #this should apply original encoding to new data
     #print(dummified_set.columns)
-    data_set_new = data_set_new.reindex(columns = dummified_set.columns, fill_value = 0)
+    #data_set_new = data_set_new.reindex(columns = dummified_set.columns, fill_value = 0)
     '''for col in cols:
         print("Col is " , data_set_new[col])
         data_set_new[col] = d[col].transform(data_set_new[col])
     '''
-    print(data_set_new.columns.to_list())
+    
+    # The following code is for your newdf after training and testing on original df
+    # Apply ohe on newdf
+    cat_ohe_new = ohe.transform(data_set_new[preprocessor.categorical_cols])
+    #Create a Pandas DataFrame of the hot encoded column
+    ohe_df_new = pd.DataFrame(cat_ohe_new, columns = ohe.get_feature_names_out(input_features = preprocessor.categorical_cols))
+    #concat with original data and drop original columns
+    df_ohe_new = pd.concat([data_set_new, ohe_df_new], axis=1).drop(columns = preprocessor.categorical_cols, axis=1)
+    #print(df_ohe_new.columns.to_list())
+    print(df_ohe_new.head)
+    # predict on df_ohe_new
+    prediction = classifier_one.predict(df_ohe_new.values)
+    
+    '''print(data_set_new.columns.to_list())
     x_new = data_set_new.iloc[:,data_set_new.columns!=stroke_col].values
     print(x_new)
     x_scaled = st_x.fit_transform(x_new)
     prediction = classifier_one.predict(x_scaled)
+    '''
     print("Prediction by Random Forest is No stroke") if prediction[0] == 0 else print("Prediction is Stroke")

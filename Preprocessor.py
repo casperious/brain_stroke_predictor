@@ -64,27 +64,27 @@ model_OHE = ColumnTransformer(
     )
 dummified = model_OHE.fit(data_set)'''
 
-'''
+
 # Create a categorical boolean mask
-categorical_feature_mask = df.dtypes == object
+categorical_feature_mask = data_set.dtypes == object
 # Filter out the categorical columns into a list for easy reference later on in case you have more than a couple categorical columns
-categorical_cols = df.columns[categorical_feature_mask].tolist()
+categorical_cols = data_set.columns[categorical_feature_mask].tolist()
 
 # Instantiate the OneHotEncoder Object
 from sklearn.preprocessing import OneHotEncoder
 ohe = OneHotEncoder(handle_unknown='ignore', sparse = False)
 # Apply ohe on data
-ohe.fit(df[categorical_cols])
-cat_ohe = ohe.transform(df[categorical_cols])
+ohe.fit(data_set[categorical_cols])
+cat_ohe = ohe.transform(data_set[categorical_cols])
 
 #Create a Pandas DataFrame of the hot encoded column
-ohe_df = pd.DataFrame(cat_ohe, columns = ohe.get_feature_names(input_features = categorical_cols))
+ohe_df = pd.DataFrame(cat_ohe, columns = ohe.get_feature_names_out(input_features = categorical_cols))
 #concat with original data and drop original columns
-df_ohe = pd.concat([df, ohe_df], axis=1).drop(columns = categorical_cols, axis=1)
+df_ohe = pd.concat([data_set, ohe_df], axis=1).drop(columns = categorical_cols, axis=1)
 
-'''
-dummified_one_hot = ohe.fit_transform(data_set)
-dummified_set = pd.get_dummies(data = data_set, columns = cols)
+dummified_set = df_ohe
+#dummified_one_hot = ohe.fit_transform(data_set)
+#dummified_set = pd.get_dummies(data = data_set, columns = cols)
 #dummies_frame_one = pd.get_dummies(data = data_set, columns = cols)
 #print(dummified.head())
 #dummified_set = dummify(model_OHE, data_set,cols)
