@@ -20,11 +20,15 @@ from sklearn.preprocessing import LabelEncoder, OneHotEncoder
 from sklearn.model_selection import train_test_split
 from sklearn.metrics import classification_report
 from sklearn.compose import ColumnTransformer
+from sklearn.utils import shuffle
 
-
-data_set = pd.read_csv('brain_stroke.csv')
-
+data = pd.read_csv('brain_stroke.csv')
+#data_set = data
+data_set = shuffle(data)
+#data_set.fillna("Unknown")
 stroke_col = 'stroke'
+x_cols = ['gender', 'age', 'hypertension', 'heart_disease', 'ever_married', 'work_type', 'Residence_type', 'glucose', 'bmi', 'smoking_status']
+y_cols = ['stroke']
 cols = ['gender', 'ever_married', 'work_type', 'Residence_type', 'smoking_status']
 gender_categories = ['Male', 'Female']
 ever_married_categories= ['Yes','No']
@@ -33,14 +37,42 @@ Residence_type_categories = ['Rural', 'Urban']
 Smoking_status_categories = ['Unknown', 'formerly smoked', 'never smoked', 'smokes']
 col_indices = [0,4,5,6,9]
 
+'''
+Below is independent and dependent split of label encoded data_set
+'''
+#extracting independent and dependent Variable
+x = data_set.iloc[:,data_set.columns!=stroke_col].values  #all columns excluding dependent variable
+y = data_set.iloc[:,10].values     #dependent variable
+
+
+x = pd.DataFrame(x, columns = x_cols)
+#y = pd.DataFrame(y,columns = y_cols)
+'''
+Below is independent and dependent split of one hot encoded dummy var data set
+
+x_one = data_set.iloc[:,data_set.columns!=stroke_col].values
+y_one = data_set.iloc[:,5].values
+'''
+#splitting dataset into training and test set
+x_train, x_test, y_train, y_test = train_test_split(x,y,test_size = 0.25, random_state = 4)
+#x_one_train, x_one_test, y_one_train, y_one_test = train_test_split(x_one,y_one, test_size = 0.25, random_state = 2, shuffle=True)
+
+#x_train = pd.DataFrame(x_train,columsn = data_set.)
+
 #encoding categorical data
 d = defaultdict(LabelEncoder)
 d_o = defaultdict(OneHotEncoder)
 ohe = OneHotEncoder(drop = 'first')
-# Encoding the variable
-
+le = LabelEncoder()
+# Label Encoding the variable
+'''
 fit = data_set.apply(lambda x: d[x.name].fit_transform(x))
 fit.apply(lambda x: d[x.name].inverse_transform(x))
+'''
+'''le.fit(x_train)
+x_train = le.transform(x_train)
+x_test = le.transform(x_test)
+'''
 #data_set.apply(lambda x: d_o[x.name].fit_transform(x))
 #print(d.keys())
 #print("________________")
@@ -64,7 +96,8 @@ model_OHE = ColumnTransformer(
     )
 dummified = model_OHE.fit(data_set)'''
 
-
+'''
+OG OHE Before split
 # Create a categorical boolean mask
 categorical_feature_mask = data_set.dtypes == object
 # Filter out the categorical columns into a list for easy reference later on in case you have more than a couple categorical columns
@@ -72,7 +105,7 @@ categorical_cols = data_set.columns[categorical_feature_mask].tolist()
 
 # Instantiate the OneHotEncoder Object
 from sklearn.preprocessing import OneHotEncoder
-ohe = OneHotEncoder(handle_unknown='ignore', sparse = False)
+ohe = OneHotEncoder(handle_unknown='ignore', sparse_output = False)
 # Apply ohe on data
 ohe.fit(data_set[categorical_cols])
 cat_ohe = ohe.transform(data_set[categorical_cols])
@@ -81,8 +114,35 @@ cat_ohe = ohe.transform(data_set[categorical_cols])
 ohe_df = pd.DataFrame(cat_ohe, columns = ohe.get_feature_names_out(input_features = categorical_cols))
 #concat with original data and drop original columns
 df_ohe = pd.concat([data_set, ohe_df], axis=1).drop(columns = categorical_cols, axis=1)
+'''
 
-dummified_set = df_ohe
+# Create a categorical boolean mask
+categorical_feature_mask = data_set.dtypes == object
+# Filter out the categorical columns into a list for easy reference later on in case you have more than a couple categorical columns
+categorical_cols = data_set.columns[categorical_feature_mask].tolist()
+
+# Instantiate the OneHotEncoder Object
+ohe = OneHotEncoder(handle_unknown='ignore', sparse_output = False)
+# Apply ohe on data
+ohe.fit(x_train[categorical_cols])
+cat_ohe = ohe.transform(x_train[categorical_cols])
+
+#Create a Pandas DataFrame of the hot encoded column
+ohe_df = pd.DataFrame(cat_ohe, columns = ohe.get_feature_names_out(input_features = categorical_cols))
+#concat with original data and drop original columns
+#df_ohe = pd.concat([x_train, ohe_df], axis=1).drop(columns = categorical_cols, axis=1)
+ohe_df.reset_index(drop=True,inplace=True)
+x_train.reset_index(drop=True,inplace=True)
+x_one_train = pd.concat([x_train,ohe_df],axis = 1).drop(columns=categorical_cols,axis=1)
+
+x_one_test = ohe.transform(x_test[categorical_cols])
+#Create a Pandas DataFrame of the hot encoded column
+ohe_df_test = pd.DataFrame(x_one_test, columns = ohe.get_feature_names_out(input_features = categorical_cols))
+#concat with original data and drop original columns
+x_test.reset_index(drop=True, inplace=True)
+ohe_df_test.reset_index(drop=True, inplace=True)
+x_one_test = pd.concat([x_test, ohe_df_test], axis=1).drop(columns = categorical_cols, axis=1)
+
 #dummified_one_hot = ohe.fit_transform(data_set)
 #dummified_set = pd.get_dummies(data = data_set, columns = cols)
 #dummies_frame_one = pd.get_dummies(data = data_set, columns = cols)
@@ -91,28 +151,13 @@ dummified_set = df_ohe
 #fit_set = dummified_set.apply(lambda x: d_o[x.name].fit_transform(x))
 #fit_set.apply(lambda x: d_o[x.name].inverse_transform(x))
 
-'''
-Below is independent and dependent split of label encoded data_set
-'''
-#extracting independent and dependent Variable
-x = fit.iloc[:,fit.columns!=stroke_col].values  #all columns excluding dependent variable
-y = fit.iloc[:,10].values     #dependent variable
 
-'''
-Below is independent and dependent split of one hot encoded dummy var data set
-'''
-x_one = dummified_set.iloc[:,dummified_set.columns!=stroke_col].values
-y_one = dummified_set.iloc[:,5].values
-
-
-#splitting dataset into training and test set
-x_train, x_test, y_train, y_test = train_test_split(x,y,test_size = 0.25, random_state = 4)
-x_one_train, x_one_test, y_one_train, y_one_test = train_test_split(x_one,y_one, test_size = 0.25, random_state = 2)
 
 #feature scaling
 from sklearn.preprocessing import StandardScaler
 st_x = StandardScaler()
-x_train = st_x.fit_transform(x_train)
+'''x_train = st_x.fit_transform(x_train)
 x_test = st_x.transform(x_test)
-x_one_train = st_x.fit_transform(x_one_train)
-x_one_test = st_x.fit_transform(x_one_test)
+''' 
+x_one_train_sc = st_x.fit_transform(x_one_train)
+x_one_test_sc = st_x.fit_transform(x_one_test)

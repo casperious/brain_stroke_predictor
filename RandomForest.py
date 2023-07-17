@@ -22,12 +22,12 @@ from sklearn import metrics
 from sklearn.metrics import classification_report
 from sklearn.metrics import confusion_matrix
 from sklearn.metrics import accuracy_score
-from sklearn.tree import export_graphviz
-from sklearn import tree
+#from sklearn.tree import export_graphviz
+#from sklearn import tree
 #Variables for code from preprocessor
 data_set = preprocessor.data_set
-fit = preprocessor.fit
-dummified = preprocessor.dummified_set
+#fit = preprocessor.fit
+#dummified = preprocessor.dummified_set
 stroke_col = preprocessor.stroke_col
 cols = preprocessor.cols
 d= preprocessor.d
@@ -35,27 +35,28 @@ d_o = preprocessor.d_o
 x_train = preprocessor.x_train
 y_train = preprocessor.y_train
 x_one_train = preprocessor.x_one_train
-y_one_train = preprocessor.y_one_train
+#y_one_train = preprocessor.y_one_train
 x_test = preprocessor.x_test
 x_one_test = preprocessor.x_one_test
 y_test = preprocessor.y_test
-y_one_test = preprocessor.y_one_test
+#y_one_test = preprocessor.y_one_test
 st_x = preprocessor.st_x
-dummified_set = preprocessor.dummified_set
+#dummified_set = preprocessor.dummified_set
 ohe = preprocessor.ohe
 
 pd.set_option('display.max_columns',None)
 
-classifier = RandomForestClassifier(n_estimators=50)
+#classifier = RandomForestClassifier(n_estimators=50)
 classifier_one = RandomForestClassifier(n_estimators=20, random_state=1, max_depth=10)
 
-classifier.fit(x_train,y_train)
-classifier_one.fit(x_one_train,y_one_train)
+#classifier.fit(x_train,y_train)
+classifier_one.fit(x_one_train,y_train)
 
-y_pred = classifier.predict(x_test)
+#y_pred = classifier.predict(x_test)
 y_one_pred = classifier_one.predict(x_one_test)
-
+'''
 #label encoded
+print("Label Encoded:- \n")
 print(confusion_matrix(y_test,y_pred))
 print(classification_report(y_test, y_pred))
 print(accuracy_score(y_test, y_pred))
@@ -63,14 +64,15 @@ print("Mean Absolute Error = " , metrics.mean_absolute_error(y_test, y_pred))
 print("Mean Squared Error = ", metrics.mean_squared_error(y_test, y_pred))
 print("Root Mean Squared Error = ", np.sqrt(metrics.mean_squared_error(y_test, y_pred)))
 print("_________________________________________________________________")
-
+'''
 #one hot encoded
-print(confusion_matrix(y_one_test,y_one_pred))
-print(classification_report(y_one_test, y_one_pred))
-print(accuracy_score(y_one_test, y_one_pred))
-print("Mean Absolute Error = " , metrics.mean_absolute_error(y_one_test, y_one_pred))
-print("Mean Squared Error = ", metrics.mean_squared_error(y_one_test, y_one_pred))
-print("Root Mean Squared Error = ", np.sqrt(metrics.mean_squared_error(y_one_test, y_one_pred)))
+print("One Hot Encoded :- \n")
+print(confusion_matrix(y_test,y_one_pred))
+print(classification_report(y_test, y_one_pred))
+print(accuracy_score(y_test, y_one_pred))
+print("Mean Absolute Error = " , metrics.mean_absolute_error(y_test, y_one_pred))
+print("Mean Squared Error = ", metrics.mean_squared_error(y_test, y_one_pred))
+print("Root Mean Squared Error = ", np.sqrt(metrics.mean_squared_error(y_test, y_one_pred)))
 
 #print decision tree
 '''fig, axes = plt.subplots(nrows = 1,ncols = 5,figsize = (10,2), dpi=900)
@@ -98,6 +100,9 @@ def ClassifyNew(data_set_new):
         print("Col is " , data_set_new[col])
         data_set_new[col] = d[col].transform(data_set_new[col])
     '''
+    
+    
+    
     
     # The following code is for your newdf after training and testing on original df
     # Apply ohe on newdf
