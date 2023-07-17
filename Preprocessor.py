@@ -27,7 +27,7 @@ data = pd.read_csv('brain_stroke.csv')
 data_set = shuffle(data)
 #data_set.fillna("Unknown")
 stroke_col = 'stroke'
-x_cols = ['gender', 'age', 'hypertension', 'heart_disease', 'ever_married', 'work_type', 'Residence_type', 'glucose', 'bmi', 'smoking_status']
+x_cols = ['gender', 'age', 'hypertension', 'heart_disease', 'ever_married', 'work_type', 'Residence_type', 'avg_glucose_level', 'bmi', 'smoking_status']
 y_cols = ['stroke']
 cols = ['gender', 'ever_married', 'work_type', 'Residence_type', 'smoking_status']
 gender_categories = ['Male', 'Female']
@@ -46,75 +46,11 @@ y = data_set.iloc[:,10].values     #dependent variable
 
 
 x = pd.DataFrame(x, columns = x_cols)
-#y = pd.DataFrame(y,columns = y_cols)
-'''
-Below is independent and dependent split of one hot encoded dummy var data set
-
-x_one = data_set.iloc[:,data_set.columns!=stroke_col].values
-y_one = data_set.iloc[:,5].values
-'''
 #splitting dataset into training and test set
 x_train, x_test, y_train, y_test = train_test_split(x,y,test_size = 0.25, random_state = 4)
-#x_one_train, x_one_test, y_one_train, y_one_test = train_test_split(x_one,y_one, test_size = 0.25, random_state = 2, shuffle=True)
-
-#x_train = pd.DataFrame(x_train,columsn = data_set.)
 
 #encoding categorical data
-d = defaultdict(LabelEncoder)
-d_o = defaultdict(OneHotEncoder)
 ohe = OneHotEncoder(drop = 'first')
-le = LabelEncoder()
-# Label Encoding the variable
-'''
-fit = data_set.apply(lambda x: d[x.name].fit_transform(x))
-fit.apply(lambda x: d[x.name].inverse_transform(x))
-'''
-'''le.fit(x_train)
-x_train = le.transform(x_train)
-x_test = le.transform(x_test)
-'''
-#data_set.apply(lambda x: d_o[x.name].fit_transform(x))
-#print(d.keys())
-#print("________________")
-#print(d_o.keys())
-'''
-One Hot Encoding with dummy vars
-
-'''
-
-'''def dummify(OHE, x, columns):
-    transformed_array = OHE.transform(x)
-    initial_colnames_keep = list(set(x.columns.tolist()) - set(columns))
-    new_colnames = np.concatenate(model_OHE.named_transformers_['OHE'].categories_).tolist()
-    all_colnames = new_colnames + initial_colnames_keep 
-    df = pd.DataFrame(transformed_array, index = x.index, columns = all_colnames)
-    return df
-
-model_OHE = ColumnTransformer(
-    [('OHE', OneHotEncoder(),['gender', 'ever_married', 'work_type', 'Residence_type', 'smoking_status'])],
-    remainder = 'passthrough'
-    )
-dummified = model_OHE.fit(data_set)'''
-
-'''
-OG OHE Before split
-# Create a categorical boolean mask
-categorical_feature_mask = data_set.dtypes == object
-# Filter out the categorical columns into a list for easy reference later on in case you have more than a couple categorical columns
-categorical_cols = data_set.columns[categorical_feature_mask].tolist()
-
-# Instantiate the OneHotEncoder Object
-from sklearn.preprocessing import OneHotEncoder
-ohe = OneHotEncoder(handle_unknown='ignore', sparse_output = False)
-# Apply ohe on data
-ohe.fit(data_set[categorical_cols])
-cat_ohe = ohe.transform(data_set[categorical_cols])
-
-#Create a Pandas DataFrame of the hot encoded column
-ohe_df = pd.DataFrame(cat_ohe, columns = ohe.get_feature_names_out(input_features = categorical_cols))
-#concat with original data and drop original columns
-df_ohe = pd.concat([data_set, ohe_df], axis=1).drop(columns = categorical_cols, axis=1)
-'''
 
 # Create a categorical boolean mask
 categorical_feature_mask = data_set.dtypes == object
@@ -129,8 +65,7 @@ cat_ohe = ohe.transform(x_train[categorical_cols])
 
 #Create a Pandas DataFrame of the hot encoded column
 ohe_df = pd.DataFrame(cat_ohe, columns = ohe.get_feature_names_out(input_features = categorical_cols))
-#concat with original data and drop original columns
-#df_ohe = pd.concat([x_train, ohe_df], axis=1).drop(columns = categorical_cols, axis=1)
+# reset indices to prevent NaN's and concat with original data and drop original columns 
 ohe_df.reset_index(drop=True,inplace=True)
 x_train.reset_index(drop=True,inplace=True)
 x_one_train = pd.concat([x_train,ohe_df],axis = 1).drop(columns=categorical_cols,axis=1)
@@ -143,21 +78,9 @@ x_test.reset_index(drop=True, inplace=True)
 ohe_df_test.reset_index(drop=True, inplace=True)
 x_one_test = pd.concat([x_test, ohe_df_test], axis=1).drop(columns = categorical_cols, axis=1)
 
-#dummified_one_hot = ohe.fit_transform(data_set)
-#dummified_set = pd.get_dummies(data = data_set, columns = cols)
-#dummies_frame_one = pd.get_dummies(data = data_set, columns = cols)
-#print(dummified.head())
-#dummified_set = dummify(model_OHE, data_set,cols)
-#fit_set = dummified_set.apply(lambda x: d_o[x.name].fit_transform(x))
-#fit_set.apply(lambda x: d_o[x.name].inverse_transform(x))
-
-
-
 #feature scaling
 from sklearn.preprocessing import StandardScaler
 st_x = StandardScaler()
-'''x_train = st_x.fit_transform(x_train)
-x_test = st_x.transform(x_test)
-''' 
-x_one_train_sc = st_x.fit_transform(x_one_train)
-x_one_test_sc = st_x.fit_transform(x_one_test)
+st_x.fit(x_one_train)
+x_one_train = st_x.transform(x_one_train)
+x_one_test = st_x.transform(x_one_test)

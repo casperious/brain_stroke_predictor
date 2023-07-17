@@ -5,7 +5,7 @@ Created on Fri Jun 23 15:56:23 2023
 @author: jeremy
 """
 
-import SVM as svm
+#import SVM as svm
 import RandomForest as rf
 import numpy as nm
 import matplotlib.pyplot as mtp
@@ -19,10 +19,10 @@ from tkinter import filedialog
 def openFile():
     filePath = filedialog.askopenfilename()
     #print(filePath)
-    data_set_new_svm = pd.read_csv(filePath)
+    #data_set_new_svm = pd.read_csv(filePath)
     data_set_new_rf = pd.read_csv(filePath)
     #print(data_set_new_rf.type)
-    svm.ClassifyNew(data_set_new_svm)
+    #svm.ClassifyNew(data_set_new_svm)
     rf.ClassifyNew(data_set_new_rf)
     
 
