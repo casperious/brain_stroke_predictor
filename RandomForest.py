@@ -89,7 +89,7 @@ def ClassifyNew(data_set_new):
     ohe_df_new.reset_index(drop=True,inplace=True)
     df_ohe_new = pd.concat([data_set_new, ohe_df_new], axis=1).drop(columns = preprocessor.categorical_cols, axis=1)
     #print(df_ohe_new.columns.to_list())
-    print(df_ohe_new.head)
+    #print(df_ohe_new.head)
     
     df_ohe_new = st_x.transform(df_ohe_new)
     
@@ -97,7 +97,7 @@ def ClassifyNew(data_set_new):
     #print(df_ohe_new)
     print("***********************")
     print(vals)
-    print("*****************")
+    print("***********************")
     # predict on df_ohe_new
     prediction = classifier_one.predict(df_ohe_new)
     
