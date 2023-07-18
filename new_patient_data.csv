@@ -1,2 +1,2 @@
 gender,age,hypertension,heart_disease,ever_married,work_type,Residence_type,avg_glucose_level,bmi,smoking_status
-Female,51,1,0,Yes,Private,Urban,88.2,28.4,never smoked
+Female,44,0,0,Yes,Govt_job,Urban,57.33,24.6,smokes

@@ -6,9 +6,7 @@ Created on Tue Jul 18 15:44:22 2023
 """
 import Preprocessor as preprocessor
 import pandas as pd
-import pickle
-
-model_pkl_file = "brain_stroke_classifier.pkl"
+import joblib
 #function to run classifier on new csv input
 def ClassifyNew(data_set_new):
     # The following code is for your newdf after training and testing on original df
@@ -25,9 +23,10 @@ def ClassifyNew(data_set_new):
     
     df_ohe_new = preprocessor.st_x.transform(df_ohe_new)
     
-    with open(model_pkl_file,'rb') as file:
-        classifier_one = pickle.load(file)
-        
+    #loading model
+    filename = "brain_stroke_predictor.sav"
+    classifier_one = joblib.load(filename)
+    
     vals = classifier_one.predict_proba(df_ohe_new)
     #print(df_ohe_new)
     print("***********************")

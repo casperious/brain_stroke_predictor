@@ -22,7 +22,7 @@ from sklearn import metrics
 from sklearn.metrics import classification_report
 from sklearn.metrics import confusion_matrix
 from sklearn.metrics import accuracy_score
-import pickle
+import joblib
 #from sklearn.tree import export_graphviz
 #from sklearn import tree
 #Variables for code from preprocessor
@@ -66,10 +66,8 @@ print("Mean Squared Error = ", metrics.mean_squared_error(y_test, y_one_pred))
 print("Root Mean Squared Error = ", np.sqrt(metrics.mean_squared_error(y_test, y_one_pred)))
 
 #Saving model
-model_pkl_file = "brain_stroke_classifier.pkl"
-with open(model_pkl_file, 'wb') as file:
-    pickle.dump(classifier_one,file)
-
+filename = "brain_stroke_predictor.sav"
+joblib.dump(classifier_one,filename)
 #print decision tree
 '''fig, axes = plt.subplots(nrows = 1,ncols = 5,figsize = (10,2), dpi=900)
 fn=data_set.columns
