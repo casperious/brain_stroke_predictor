@@ -6,7 +6,8 @@ Created on Fri Jun 23 15:56:23 2023
 """
 
 #import SVM as svm
-import RandomForest as rf
+#import RandomForest as rf
+import classify_new as cn
 import numpy as nm
 import matplotlib.pyplot as mtp
 import pandas as pd
@@ -23,8 +24,8 @@ def openFile():
     data_set_new_rf = pd.read_csv(filePath)
     #print(data_set_new_rf.type)
     #svm.ClassifyNew(data_set_new_svm)
-    rf.ClassifyNew(data_set_new_rf)
-    
+    #rf.ClassifyNew(data_set_new_rf)
+    cn.ClassifyNew(data_set_new_rf)
 
 #accept new csv file to read and predict
 window = Tk()
