@@ -68,7 +68,7 @@ ohe_df = pd.DataFrame(cat_ohe, columns = ohe.get_feature_names_out(input_feature
 # reset indices to prevent NaN's and concat with original data and drop original columns 
 ohe_df.reset_index(drop=True,inplace=True)
 x_train.reset_index(drop=True,inplace=True)
-x_one_train = pd.concat([x_train,ohe_df],axis = 1).drop(columns=categorical_cols,axis=1)
+x_one_train_df = pd.concat([x_train,ohe_df],axis = 1).drop(columns=categorical_cols,axis=1)
 
 x_one_test = ohe.transform(x_test[categorical_cols])
 #Create a Pandas DataFrame of the hot encoded column
@@ -81,6 +81,6 @@ x_one_test = pd.concat([x_test, ohe_df_test], axis=1).drop(columns = categorical
 #feature scaling
 from sklearn.preprocessing import StandardScaler
 st_x = StandardScaler()
-st_x.fit(x_one_train)
-x_one_train = st_x.transform(x_one_train)
+st_x.fit(x_one_train_df)
+x_one_train = st_x.transform(x_one_train_df)
 x_one_test = st_x.transform(x_one_test)

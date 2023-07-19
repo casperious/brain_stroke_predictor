@@ -17,7 +17,9 @@ from tkinter import filedialog
 def openFile():
     filePath = filedialog.askopenfilename()
     data_set_new_rf = pd.read_csv(filePath)
-    cn.ClassifyNew(data_set_new_rf)
+    data_set_new_svm = pd.read_csv(filePath)
+    cn.ClassifyNewRF(data_set_new_rf)
+    cn.ClassifyNewSVM(data_set_new_svm)
 
 window = Tk()
 button = Button(text = "Open file", command = openFile)
