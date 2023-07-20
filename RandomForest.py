@@ -50,7 +50,9 @@ def display(results):
         print(f'{round(mean,3)} + or -{round(std,3)} for the {params}')
 #classifier = RandomForestClassifier(n_estimators=50)
 feature_list = list(preprocessor.x_one_train_df.columns)
-classifier_one = RandomForestClassifier(n_estimators=20, max_depth=8)
+#classifier_one = RandomForestClassifier(n_estimators=20, max_depth=8)
+#cw = {1:}
+classifier_one = RandomForestClassifier(n_estimators=20, max_depth=8, class_weight= "balanced")
 '''
 Selecting best parameters
 
