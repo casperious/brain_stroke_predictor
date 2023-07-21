@@ -24,8 +24,9 @@ def ClassifyNewRF(data_set_new):
     df_ohe_new = preprocessor.st_x.transform(df_ohe_new)
     
     #loading model
-    filename = "brain_stroke_predictor.sav"
-    classifier_one = joblib.load(filename)
+    #filename = "brain_stroke_predictor.sav"
+    filename_up = "rf.sav"
+    classifier_one = joblib.load(filename_up)
     
     vals = classifier_one.predict_proba(df_ohe_new)
     #print(df_ohe_new)
@@ -60,7 +61,8 @@ def ClassifyNewSVM(data_set_new):
     
     #Loading Model
     filename = "svm_predictor.sav"
-    classifier_one = joblib.load(filename)
+    filename_up = "svm_up.sav"
+    classifier_one = joblib.load(filename_up)
     
     '''vals = classifier_one.predict_proba(df_ohe_new)
     #print(df_ohe_new)

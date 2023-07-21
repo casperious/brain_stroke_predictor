@@ -52,16 +52,16 @@ def display(results):
 feature_list = list(preprocessor.x_one_train_df.columns)
 #classifier_one = RandomForestClassifier(n_estimators=20, max_depth=8)
 #cw = {1:}
-classifier_one = RandomForestClassifier(n_estimators=20, max_depth=8, class_weight= "balanced")
+classifier_one = RandomForestClassifier(n_estimators=50, max_depth=None, class_weight= "balanced")
 '''
-Selecting best parameters
+#Selecting best parameters
 
-rfc = RandomForestClassifier()
+#rfc = RandomForestClassifier()
 parameters = {
     "n_estimators":[5,10,50,100,250],
     "max_depth":[2,4,8,16,32,None]
     }
-cv = GridSearchCV(rfc,parameters,cv=5)
+cv = GridSearchCV(classifier_one,parameters,cv=5)
 cv.fit(x_one_train,y_train)
 display(cv)'''
 #classifier.fit(x_train,y_train)
@@ -90,23 +90,11 @@ print("Mean Squared Error = ", metrics.mean_squared_error(y_test, y_one_pred))
 print("Root Mean Squared Error = ", np.sqrt(metrics.mean_squared_error(y_test, y_one_pred)))
 
 #Saving model
+filename_up = "rf.sav"
 filename = "brain_stroke_predictor.sav"
 #joblib.dump(classifier_one,filename)               #Uncomment to save new model
-
+#joblib.dump(classifier_one,filename_up)             #upsampled classifier
 #print decision tree
-'''fig, axes = plt.subplots(nrows = 1,ncols = 5,figsize = (10,2), dpi=900)
-fn=data_set.columns
-#cn=data_set.target_names
-for index in range(0, 5):
-    tree.plot_tree(classifier.estimators_[index],
-                   feature_names = fn, 
-                   #class_names=cn,
-                   filled = True,
-                   ax = axes[index]);
-
-    axes[index].set_title('Estimator: ' + str(index), fontsize = 11)
-fig.savefig('rf_5trees.png')'''
-
 
 #function to run classifier on new csv input
 def ClassifyNew(data_set_new):

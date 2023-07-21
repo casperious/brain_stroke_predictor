@@ -55,6 +55,8 @@ cm_one = confusion_matrix(y_test, y_one_pred)
 
 #Saving model
 filename = "svm_predictor.sav"
+filename_up = "svm_up.sav"
+#joblib.dump(classifier_one,filename_up)
 #joblib.dump(classifier_one,filename)
 #plotting classificaton plain
 #mtp.scatter()

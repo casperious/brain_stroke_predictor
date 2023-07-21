@@ -21,7 +21,8 @@ from sklearn.model_selection import train_test_split
 from sklearn.metrics import classification_report
 from sklearn.compose import ColumnTransformer
 from sklearn.utils import shuffle
-
+import seaborn as sns
+from sklearn.utils import resample
 data = pd.read_csv('brain_stroke.csv')
 #data_set = data
 data_set = shuffle(data)
@@ -37,12 +38,29 @@ Residence_type_categories = ['Rural', 'Urban']
 Smoking_status_categories = ['Unknown', 'formerly smoked', 'never smoked', 'smokes']
 col_indices = [0,4,5,6,9]
 
+#print(data_set['stroke'].value_counts())
+
+'''
+Upsampling positive stroke data to match negative stroke
+'''
+df_majority = data_set[(data_set['stroke']==0)]
+df_minority = data_set[(data_set['stroke']==1)]
+
+#upsample minority class
+df_minority_upsampled = resample(df_minority,
+                                 replace = True,        #sample with replacement
+                                 n_samples = 4733,      #To match majority count
+                                 random_state = 42)     #reproducible results
+
+#combine majority with upsampled minority data
+df_upsampled = pd.concat([df_minority_upsampled, df_majority])
+#print(df_upsampled['stroke'].value_counts())
 '''
 Below is independent and dependent split of label encoded data_set
 '''
 #extracting independent and dependent Variable
-x = data_set.iloc[:,data_set.columns!=stroke_col].values  #all columns excluding dependent variable
-y = data_set.iloc[:,10].values     #dependent variable
+x = df_upsampled.iloc[:,data_set.columns!=stroke_col].values  #all columns excluding dependent variable
+y = df_upsampled.iloc[:,10].values     #dependent variable
 
 
 x = pd.DataFrame(x, columns = x_cols)
