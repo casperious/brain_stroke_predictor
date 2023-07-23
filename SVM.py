@@ -14,6 +14,7 @@ from sklearn.metrics import classification_report
 from sklearn.compose import ColumnTransformer
 import Preprocessor as preprocessor
 import joblib
+from sklearn.model_selection import GridSearchCV
 #Variables for code from preprocessor
 #fit = preprocessor.fit
 #dummified = preprocessor.dummified_set
@@ -33,10 +34,17 @@ ohe = preprocessor.ohe
 #SVM
 from sklearn import svm #"Support Vector Classifier"
 #classifier = svm.SVC(kernel='rbf',gamma = 6,C = 2)
-classifier_one = svm.SVC(kernel='rbf',gamma = 0.1,C=2)
+classifier_one = svm.SVC(gamma = 1,C=5) #kernel='rbf',
 #classifier.fit(x_train,y_train)
 classifier_one.fit(x_one_train,y_train)
 
+'''
+#checking optimal hyperparams
+param_grid = {'C': [0.1,1,5], 'gamma': [1,0.1,0.01,0.001],'kernel': ['rbf', 'poly', 'sigmoid']}
+grid = GridSearchCV(svm.SVC(),param_grid,refit=True,verbose=2)
+grid.fit(x_one_train,y_train)
+print(grid.best_estimator_)
+'''
 #predicting test results
 #y_pred = classifier.predict(x_test)
 y_one_pred = classifier_one.predict(x_one_test)
