@@ -24,6 +24,7 @@ from sklearn.metrics import confusion_matrix
 from sklearn.metrics import accuracy_score
 import joblib
 from sklearn.model_selection import GridSearchCV
+from sklearn.metrics import roc_auc_score
 
 data_set = preprocessor.data_set
 stroke_col = preprocessor.stroke_col
@@ -70,7 +71,10 @@ classifier_one.fit(x_one_train,y_train)
 #y_pred = classifier.predict(x_test)
 y_one_pred = classifier_one.predict(x_one_test)
 
-# Get numerical feature importances
+roc_auc = roc_auc_score(y_test, y_one_pred)
+print("ROC_AUC Score is " ,roc_auc)
+
+'''# Get numerical feature importances
 importances = list(classifier_one.feature_importances_)# List of tuples with variable and importance
 feature_importances = [(feature, round(importance, 2)) for feature, importance in zip(feature_list, importances)]# Sort the feature importances by most important first
 feature_importances = sorted(feature_importances, key = lambda x: x[1], reverse = True)# Print out the feature and importances 
@@ -79,7 +83,7 @@ feature_importances = sorted(feature_importances, key = lambda x: x[1], reverse 
 x_values = list(range(len(importances)))# Make a bar chart
 plt.bar(x_values, importances, orientation = 'vertical', color = 'r', edgecolor = 'k', linewidth = 1.2)# Tick labels for x axis
 plt.xticks(x_values, feature_list, rotation='vertical')# Axis labels and title
-plt.ylabel('Importance'); plt.xlabel('Variable'); plt.title('Variable Importances');
+plt.ylabel('Importance'); plt.xlabel('Variable'); plt.title('Variable Importances');'''
 #one hot encoded
 print("One Hot Encoded :- \n")
 print(confusion_matrix(y_test,y_one_pred))

@@ -1,6 +1,3 @@
-#Data Pre-processing Stage
-#importing libs
-
 import numpy as nm
 #import matplotlib.pyplot as mtp
 import pandas as pd
@@ -15,6 +12,7 @@ from sklearn.compose import ColumnTransformer
 import Preprocessor as preprocessor
 import joblib
 from sklearn.model_selection import GridSearchCV
+from sklearn.metrics import roc_auc_score
 #Variables for code from preprocessor
 #fit = preprocessor.fit
 #dummified = preprocessor.dummified_set
@@ -48,6 +46,9 @@ print(grid.best_estimator_)
 #predicting test results
 #y_pred = classifier.predict(x_test)
 y_one_pred = classifier_one.predict(x_one_test)
+
+roc_auc = roc_auc_score(y_test, y_one_pred)
+print("ROC_AUC Score is " ,roc_auc)
 
 #printing report
 #print(classification_report(y_test,y_pred))
