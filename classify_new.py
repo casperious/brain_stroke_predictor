@@ -18,8 +18,6 @@ def ClassifyNewRF(data_set_new):
     data_set_new.reset_index(drop=True,inplace=True)
     ohe_df_new.reset_index(drop=True,inplace=True)
     df_ohe_new = pd.concat([data_set_new, ohe_df_new], axis=1).drop(columns = preprocessor.categorical_cols, axis=1)
-    #print(df_ohe_new.columns.to_list())
-    #print(df_ohe_new.head)
     
     df_ohe_new = preprocessor.st_x.transform(df_ohe_new)
     
@@ -35,13 +33,6 @@ def ClassifyNewRF(data_set_new):
     print("***********************")
     # predict on df_ohe_new
     prediction = classifier_one.predict(df_ohe_new)
-    
-    '''print(data_set_new.columns.to_list())
-    x_new = data_set_new.iloc[:,data_set_new.columns!=stroke_col].values
-    print(x_new)
-    x_scaled = st_x.fit_transform(x_new)
-    prediction = classifier_one.predict(x_scaled)
-    '''
     print("Prediction by Random Forest is No stroke") if prediction[0] == 0 else print("Prediction by Random Forest is Stroke")
 
 def ClassifyNewSVM(data_set_new):
@@ -54,21 +45,12 @@ def ClassifyNewSVM(data_set_new):
     data_set_new.reset_index(drop=True,inplace=True)
     ohe_df_new.reset_index(drop=True,inplace=True)
     df_ohe_new = pd.concat([data_set_new, ohe_df_new], axis=1).drop(columns = preprocessor.categorical_cols, axis=1)
-    #print(df_ohe_new.columns.to_list())
-    #print(df_ohe_new.head)
-    
     df_ohe_new = preprocessor.st_x.transform(df_ohe_new)
     
     #Loading Model
-    filename = "svm_predictor.sav"
+    #filename = "svm_predictor.sav"
     filename_up = "svm_up.sav"
     classifier_one = joblib.load(filename_up)
-    
-    '''vals = classifier_one.predict_proba(df_ohe_new)
-    #print(df_ohe_new)
-    print("***********************")
-    print(vals)
-    print("***********************")'''
     # predict on df_ohe_new
     prediction = classifier_one.predict(df_ohe_new)
     print("Prediction by SVM is No stroke") if prediction[0] == 0 else print("Prediction by SVM is Stroke")
