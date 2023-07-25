@@ -95,4 +95,5 @@ def ClassifyNew(data_set_new):
     # predict on df_ohe_new
     prediction = classifier_one.predict(df_ohe_new)
     print("Prediction by SVM is No stroke") if prediction[0] == 0 else print("Prediction is Stroke")
+    return prediction
     

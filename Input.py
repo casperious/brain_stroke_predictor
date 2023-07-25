@@ -17,10 +17,23 @@ import customtkinter as customtkinter
 customtkinter.set_appearance_mode("Dark")
 customtkinter.set_default_color_theme("dark-blue")  # Themes: "blue" (standard), "green", "dark-blue"
 #customtkinter.set_default_color_theme("dark_blue")
-'''app = customtkinter.CTk()
-app.geometry("1200x800")
+app = customtkinter.CTk()
+app.geometry("500x350")
 app.title("Brain Stroke Predictor")
-'''
+
+#CustomTKInter
+frame = customtkinter.CTkFrame(master= app)
+frame.pack(pady=20,padx = 60, fill = "both",expand = True)
+
+label = customtkinter.CTkLabel(master= frame, text = "Brain Stroke Predictions", font = ("Arial",24))
+label.pack(pady=12,padx=10)
+
+rf_label = customtkinter.CTkLabel(master=frame, font=("Arial",16),text="Random Forest Prediction")
+rf_label.pack(pady=12,padx=10)
+
+svm_label= customtkinter.CTkLabel(master=frame, font=("Arial",16), text = "Support Vector Machine Prediction")
+svm_label.pack(pady=12,padx=10)
+
 '''
 
 Input check. No empty string, has to be csv, formatted correctly
@@ -34,12 +47,18 @@ def openFile():
     if(filePath!='' and fileExtension == ".csv"):   #only csv 
         data_set_new_rf = pd.read_csv(filePath)
         data_set_new_svm = pd.read_csv(filePath)
-        cn.ClassifyNewRF(data_set_new_rf)
-        cn.ClassifyNewSVM(data_set_new_svm)
+        prediction_rf = cn.ClassifyNewRF(data_set_new_rf)
+        rf_label.configure(text= "Prediction by Random Forest is No stroke" if prediction_rf[0] == 0 else "Prediction by Random Forest is Stroke")
+        prediction_svm = cn.ClassifyNewSVM(data_set_new_svm)
+        svm_label.configure(text="Prediction by SVM is No stroke" if prediction_svm[0] == 0 else "Prediction by SVM is Stroke")
 
 #def close():
 #    app.quit()
 
+button = customtkinter.CTkButton(master=frame,text="Open file", command = openFile)
+button.pack(padx=10,pady=12)
+#TKinter base
+'''
 window = tk.Tk()
 window.geometry("500x500")
 window.title("Brain Stroke Predictor")
@@ -47,22 +66,13 @@ window.title("Brain Stroke Predictor")
 label = tk.Label(window,text = "Test", font = ('Arial',18))
 label.pack(padx = 20, pady = 20)
 
+
 button = tk.Button(text = "Open file", command = openFile)
 button.pack()
 
-
-
-'''
-frame_1 = customtkinter.CTkFrame(master=app)
-frame_1.pack(pady=20, padx=60, fill="both", expand=True)
-
-button = customtkinter.CTkButton(master=frame_1, text="Open File", command=openFile)
-button.place(relx=0.5, rely=0.5, anchor=customtkinter.CENTER)
-
-quit_button = customtkinter.CTkButton(master=frame_1, text="Exit",command = close)
-quit_button.place(relx = 1,rely = 0, anchor = customtkinter.NE)
-
-textbox = customtkinter.CTkTextbox(frame_1)
-
-app.mainloop()'''
 window.mainloop()
+'''
+
+
+
+app.mainloop()
