@@ -32,7 +32,7 @@ ohe = preprocessor.ohe
 #SVM
 from sklearn import svm #"Support Vector Classifier"
 #classifier = svm.SVC(kernel='rbf',gamma = 6,C = 2)
-classifier_one = svm.SVC(gamma = 1,C=5) #kernel='rbf',
+classifier_one = svm.SVC(gamma = 1,C=5,probability=True) #kernel='rbf',
 #classifier.fit(x_train,y_train)
 classifier_one.fit(x_one_train,y_train)
 
@@ -69,31 +69,3 @@ filename_up = "svm_up.sav"
 #joblib.dump(classifier_one,filename)
 #plotting classificaton plain
 #mtp.scatter()
-
-
-#function to run classifier on new csv input
-def ClassifyNew(data_set_new):
-    # The following code is for your newdf after training and testing on original df
-    # Apply ohe on newdf
-    cat_ohe_new = ohe.transform(data_set_new[preprocessor.categorical_cols])
-    #Create a Pandas DataFrame of the hot encoded column
-    ohe_df_new = pd.DataFrame(cat_ohe_new, columns = ohe.get_feature_names_out(input_features = preprocessor.categorical_cols))
-    #concat with original data and drop original columns
-    data_set_new.reset_index(drop=True,inplace=True)
-    ohe_df_new.reset_index(drop=True,inplace=True)
-    df_ohe_new = pd.concat([data_set_new, ohe_df_new], axis=1).drop(columns = preprocessor.categorical_cols, axis=1)
-    #print(df_ohe_new.columns.to_list())
-    #print(df_ohe_new.head)
-    
-    df_ohe_new = st_x.transform(df_ohe_new)
-    
-    vals = classifier_one.predict_proba(df_ohe_new)
-    #print(df_ohe_new)
-    print("***********************")
-    print(vals)
-    print("***********************")
-    # predict on df_ohe_new
-    prediction = classifier_one.predict(df_ohe_new)
-    print("Prediction by SVM is No stroke") if prediction[0] == 0 else print("Prediction is Stroke")
-    return prediction
-    

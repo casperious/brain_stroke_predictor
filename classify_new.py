@@ -27,14 +27,12 @@ def ClassifyNewRF(data_set_new):
     classifier_one = joblib.load(filename_up)
     
     vals = classifier_one.predict_proba(df_ohe_new)
-    #print(df_ohe_new)
-    print("***********************")
-    print(vals)
-    print("***********************")
+    
     # predict on df_ohe_new
     prediction = classifier_one.predict(df_ohe_new)
+    vals = classifier_one.predict_proba(df_ohe_new)
     print("Prediction by Random Forest is No stroke") if prediction[0] == 0 else print("Prediction by Random Forest is Stroke")
-    return prediction
+    return prediction,vals
     
 def ClassifyNewSVM(data_set_new):
     # The following code is for your newdf after training and testing on original df
@@ -54,5 +52,6 @@ def ClassifyNewSVM(data_set_new):
     classifier_one = joblib.load(filename_up)
     # predict on df_ohe_new
     prediction_svm = classifier_one.predict(df_ohe_new)
+    vals = classifier_one.predict_proba(df_ohe_new)
     print("Prediction by SVM is No stroke") if prediction_svm[0] == 0 else print("Prediction by SVM is Stroke")
-    return prediction_svm
+    return prediction_svm,vals
