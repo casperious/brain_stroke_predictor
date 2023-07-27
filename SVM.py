@@ -1,4 +1,4 @@
-import numpy as nm
+import numpy as np
 #import matplotlib.pyplot as mtp
 import pandas as pd
 #import category_encoders as ce
@@ -7,7 +7,8 @@ from sklearn import preprocessing
 from collections import defaultdict
 from sklearn.preprocessing import LabelEncoder, OneHotEncoder
 from sklearn.model_selection import train_test_split
-from sklearn.metrics import classification_report
+from sklearn.metrics import classification_report, confusion_matrix, accuracy_score
+from sklearn import metrics
 from sklearn.compose import ColumnTransformer
 import Preprocessor as preprocessor
 import joblib
@@ -48,24 +49,24 @@ print(grid.best_estimator_)
 y_one_pred = classifier_one.predict(x_one_test)
 
 roc_auc = roc_auc_score(y_test, y_one_pred)
-print("ROC_AUC Score is " ,roc_auc)
+print("ROC_AUC Score for SVM is " ,roc_auc, "\n")
 
-#printing report
-#print(classification_report(y_test,y_pred))
-#print(" -------------------------------------------------------------------------------------------------")
-print(classification_report(y_test, y_one_pred))
+report = classification_report(y_test, y_one_pred)
+accuracy = accuracy_score(y_test,y_one_pred)
+saved_accuracy_score = 101                                  #have to figure out a way to save highest accuracy with file
 
-#print("Where did the 100% come from")
-
-#creating confusion matrix
-from sklearn.metrics import confusion_matrix
-#cm = confusion_matrix(y_test, y_pred)
-cm_one = confusion_matrix(y_test, y_one_pred)
+print(confusion_matrix(y_test,y_one_pred))
+print(report)
+print(accuracy_score(y_test, y_one_pred))
+print("Mean Absolute Error = " , metrics.mean_absolute_error(y_test, y_one_pred))
+print("Mean Squared Error = ", metrics.mean_squared_error(y_test, y_one_pred))
+print("Root Mean Squared Error = ", np.sqrt(metrics.mean_squared_error(y_test, y_one_pred)))
 
 #Saving model
 filename = "svm_predictor.sav"
 filename_up = "svm_up.sav"
-#joblib.dump(classifier_one,filename_up)
-#joblib.dump(classifier_one,filename)
+if(saved_accuracy_score<accuracy):    
+    joblib.dump(classifier_one,filename_up)
+
 #plotting classificaton plain
 #mtp.scatter()

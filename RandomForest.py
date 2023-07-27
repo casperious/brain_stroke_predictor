@@ -72,7 +72,7 @@ classifier_one.fit(x_one_train,y_train)
 y_one_pred = classifier_one.predict(x_one_test)
 
 roc_auc = roc_auc_score(y_test, y_one_pred)
-print("ROC_AUC Score is " ,roc_auc)
+print("ROC_AUC Score for RF is " ,roc_auc)
 
 '''# Get numerical feature importances
 importances = list(classifier_one.feature_importances_)# List of tuples with variable and importance
